@@ -1,20 +1,20 @@
-# Lab 02 – 2FA Simple Bypass
+# Lab 02 – Username Enumeration via Subtly Different Responses
 
 ## Overview
 
-This lab demonstrates an authentication flaw where the application fails to properly enforce two-factor authentication (2FA), allowing access to authenticated resources without completing the verification process.
+This lab demonstrates how subtle differences in authentication responses can disclose valid usernames. By carefully analyzing server responses, an attacker can enumerate existing accounts without triggering obvious security alerts.
 
 ---
 
 ## Objective
 
-Assess the authentication workflow and identify a method to bypass the second authentication factor.
+Identify a valid username by comparing subtle variations in authentication responses.
 
 ---
 
 ## Vulnerability
 
-The application relies on client-side navigation rather than server-side validation to enforce the 2FA process. As a result, an authenticated user can directly access protected resources without successfully completing the second verification step.
+The application returns slightly different responses for valid and invalid usernames, allowing an attacker to distinguish legitimate accounts.
 
 ---
 
@@ -24,40 +24,40 @@ The application relies on client-side navigation rather than server-side validat
 |------|---------|
 | Platform | PortSwigger Web Security Academy |
 | Category | Authentication |
-| Difficulty | Apprentice |
+| Difficulty | Practitioner |
 | Tools | Burp Suite Professional, Mozilla Firefox |
 
 ---
 
 ## Methodology
 
-1. Authenticate using valid user credentials.
-2. Intercept the authentication flow using Burp Suite.
-3. Analyze the 2FA verification request.
-4. Modify the workflow to bypass the verification step.
-5. Access the protected resource.
-6. Successfully complete the lab.
+1. Capture the login request using Burp Suite.
+2. Send the request to Repeater.
+3. Test multiple usernames.
+4. Compare response content and length.
+5. Identify the valid username.
+6. Complete the authentication process.
 
 ---
 
 ## Result
 
-The authentication mechanism was successfully bypassed by exploiting improper server-side validation of the two-factor authentication process.
+Successfully identified a valid username by analyzing subtle differences in server responses.
 
 ---
 
 ## Security Impact
 
-Improper enforcement of 2FA allows attackers with valid credentials to gain unauthorized access without completing the additional verification step, significantly reducing the effectiveness of multi-factor authentication.
+Username enumeration enables attackers to perform targeted password attacks against legitimate accounts.
 
 ---
 
 ## Mitigation
 
-- Enforce 2FA validation on the server side.
-- Bind user sessions to successful 2FA completion.
-- Prevent direct access to protected resources before verification.
-- Validate authentication state on every sensitive request.
+- Return identical authentication responses.
+- Implement rate limiting.
+- Enable account lockout.
+- Log suspicious authentication attempts.
 
 ---
 
